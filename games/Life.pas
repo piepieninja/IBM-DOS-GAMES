@@ -12,13 +12,16 @@ uses Crt;
 
 {set some globals so that the program can easily toggle between DOS and OSX}
 var isDOS : boolean = false;
+var cont  : char = 'y';
 {this will randomly give live to this percentage of cells each step. if 0.0 then it is off and 0.04 would be 4%}
 var randomLife : real = 0.04;
 {set the terminal width and height here... the grid must always be square!}
 var grid  : array[1..60, 1..60] of boolean;
 var temp  : array[1..60, 1..60] of boolean; 
 {set the loop num}
-var x : integer = 1;
+var x     : integer = 1;
+{the population iteration variable}
+var iter : integer;
 
 procedure fillGrid();
 var i : integer;
@@ -126,17 +129,6 @@ begin
 end;  
 
 begin
-   Randomize;
-   fillGrid();
-   while x < 100 do {don't do it forever because I can't find out how to sig kill it}
-   begin
-      x := x + 1;
-      printGrid();
-      write('step: ',x);
-      step();
-      Delay(100);
-      clrscr;
-   end;
    writeln('#==============================#');
    writeln('#  _      _____ ______ ______  #');
    writeln('# | |    |_   _|  ____|  ____| #');
@@ -146,4 +138,34 @@ begin
    writeln('# |______|_____|_|    |______| #');
    writeln('#                              #');
    writeln('#==============================#');
+   while cont = 'y' do
+   begin
+      writeln('How many itterations would you like? note, 100 iterations is subtsantial.');
+      write('>> ');
+      readln(iter);
+
+      writeln('What would you like the random population generation percentage to be (in decemal format XXX.XXX). note, that 0.04 is substantial.');
+      write('>> ');
+      readln(randomLife);
+   
+      Randomize;
+      fillGrid();
+      while x < iter do {don't do it forever because I can't find out how to sig kill it}
+      begin
+	 x := x + 1;
+	 printGrid();
+	 write('step: ',x);
+	 step();
+	 Delay(100);
+	 clrscr;
+      end;
+
+      x := 1; {reset clock}
+      write('Life ran ', iter);
+      write(' iterations. Do you want to run Life again? (y/n)');
+      writeln('');
+      write('>> ');
+      readln(cont);
+      
+   end;
 end.
