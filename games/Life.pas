@@ -12,6 +12,8 @@ uses Crt;
 
 {set some globals so that the program can easily toggle between DOS and OSX}
 var isDOS : boolean = false;
+{this will randomly give live to this percentage of cells each step. if 0.0 then it is off and 0.04 would be 4%}
+var randomLife : real = 0.04;
 {set the terminal width and height here... the grid must always be square!}
 var grid  : array[1..60, 1..60] of boolean;
 var temp  : array[1..60, 1..60] of boolean; 
@@ -115,7 +117,10 @@ begin
    begin
       for j := 1 to length(grid) do
       begin
-	 grid[i][j] := temp[i][j]
+	 if Random < randomLife then
+	    grid[i][j] := true
+	 else
+	    grid[i][j] := temp[i][j]
       end
    end;
 end;  
