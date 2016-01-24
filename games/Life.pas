@@ -12,8 +12,11 @@ uses Crt;
 
 {set some globals so that the program can easily toggle between DOS and OSX}
 var isDOS : boolean = false;
-   {set the terminal width and height here... but it also has to be ch}
-var grid  : array[1..20, 1..20] of char;
+{set the terminal width and height here... the grid must always be square!}
+var grid  : array[1..60, 1..60] of boolean;
+var temp  : array[1..60, 1..60] of boolean; 
+{set the loop num}
+var x : integer = 1;
 
 procedure fillGrid();
 var i : integer;
@@ -23,10 +26,16 @@ begin
    begin
       for j := 1 to length(grid) do
       begin
-	 if Random > 0.65 then
-	    grid[i][j] := 'X'
+	 if Random > 0.65 then {make a good number of cells}
+	 begin
+	    grid[i][j] := true;
+	    temp[i][j] := true;
+	 end
 	 else
-	    grid[i][j] := ' '
+	 begin
+	    grid[i][j] := false;
+	    temp[i][j] := false;
+	 end
       end;
    end;
 end;
@@ -41,16 +50,93 @@ begin
       begin
 	 {woot print the thing!}
 	 if j = length(grid) then
-	    writeln('', grid[i][j])
+	    if grid[i][j] then
+	       writeln('X')
+	    else
+	       writeln(' ')
 	 else
-	    write('', grid[i][j])
+	    if grid[i][j] then
+	       write('X')
+	    else
+	       write(' ')
       end;
    end;
 end;
 
+function countNeighbors(i,j : integer): integer;
 begin
-   writeln ('Hello, world.');
+   countNeighbors := 0;
+   if ((i < length(grid) + 1) and (j < length(grid) + 1) and (i > 1) and (j > 1)) then
+   begin
+      if grid[i-1][j-1] then Inc(countNeighbors); 
+      if grid[i][j-1] then Inc(countNeighbors);
+      if grid[i+1][j-1] then Inc(countNeighbors);
+      if grid[i-1][j] then Inc(countNeighbors);
+      if grid[i][j] then Inc(countNeighbors);
+      if grid[i+1][j] then Inc(countNeighbors);
+      if grid[i-1][j+1] then Inc(countNeighbors);
+      if grid[i][j+1] then Inc(countNeighbors);
+      if grid[i+1][j+1] then Inc(countNeighbors);
+   end
+   {the edge cases could be added}
+end;
+
+procedure step();
+var i :   integer;
+var j :   integer;
+var c :   integer;
+begin
+   {calculate next step}
+   for i := 1 to length(grid) do
+   begin
+      for j := 1 to length(grid) do
+      begin
+	 c := countNeighbors(i,j);
+	 if c <= 2 then
+	 begin
+	    temp[i][j] := false;
+	 end
+	 else if (c = 2) or (c = 3) and (grid[i][j]) then
+	 begin
+	    temp[i][j] := true;
+	 end
+	 else if (c > 3) then
+	 begin
+	    temp[i][j] := false;
+	 end
+	 else if (c = 3) then
+	 begin
+	    temp[i][j] := true;
+	 end
+      end;
+   end;
+   {fill from temp grid}
+   for i := 1 to length(grid) do
+   begin
+      for j := 1 to length(grid) do
+      begin
+	 grid[i][j] := temp[i][j]
+      end
+   end;
+end;  
+
+begin
+   Randomize;
    fillGrid();
-   printGrid();
-   {clrscr;}
+   while x < 100 do {don't do it forever because I can't find out how to sig kill it}
+   begin
+      x := x + 1;
+      printGrid();
+      write('step: ',x);
+      step();
+      Delay(100);
+      clrscr;
+   end;
+   writeln('  _      _____ ______ ______ ');
+   writeln(' | |    |_   _|  ____|  ____|');
+   writeln(' | |      | | | |__  | |__   ');
+   writeln(' | |      | | |  __| |  __|  ');
+   writeln(' | |____ _| |_| |    | |____ ');
+   writeln(' |______|_____|_|    |______|');
+   writeln('#============================#');
 end.
