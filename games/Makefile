@@ -1,7 +1,7 @@
 all:
-	fpc Life.cpp -oLIFE.x
+	fpc Life.pas -oLIFE.x
 life:
-	fpc Life.cpp -oLIFE.x
+	fpc Life.pas -oLIFE.x
 clean:
 	if [ -a *~ ] ; \
 	then \
