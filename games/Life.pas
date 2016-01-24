@@ -23,7 +23,10 @@ begin
    begin
       for j := 1 to length(grid) do
       begin
-	 grid[i][j] := 'X';
+	 if Random > 0.65 then
+	    grid[i][j] := 'X'
+	 else
+	    grid[i][j] := ' '
       end;
    end;
 end;
