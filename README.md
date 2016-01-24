@@ -1,2 +1,19 @@
 # IBM-DOS-GAMES
-a repo to comtain the games and custom programs for my old 1989 IBM PS/2
+a repo to contain the games and custom programs for my old 1989 IBM PS/2
+
+### HOW TO USE:
+this requires the free pascal compiler located at:
+![http://www.freepascal.org/](http://www.freepascal.org/ "free pascal")
+the fpc can also be downloaded directly from: ![free pascal downloads](http://www.freepascal.org/download.var "downloads")
+
+you must add this path to your .bashrc (or .zshrc) file:
+<code>export PATH=/usr/local/bin:$PATH</code>
+
+name your files with the extension:
+<code>*.pas</code>
+
+to compile the program run:
+<code>fpc filename.pas</code>
+
+to name the executable from your program type what you want in the 'xxx' spot:
+<code>fpc filename.pas -oxxx</code>
