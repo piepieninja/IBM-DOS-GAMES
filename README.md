@@ -1,5 +1,5 @@
 # IBM-DOS-GAMES
-a repo to contain the games and custom programs for my old 1989 IBM PS/2
+#### games and custom programs for my old 1989 IBM PS/2
 
 ### HOW TO USE:
 this requires the free pascal compiler located at:
