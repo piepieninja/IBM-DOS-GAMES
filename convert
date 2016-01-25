@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+##
+# Author: Caleb Adams
+# Discription: Converts any of the programs included here into a DOS readable format
+# Only Need to input the file
+#
+## 
+
+echo "######################################"
+echo "#                                    #"
+echo "#       UNIX TO DOS CONVERTER        #"
+echo "#       =====================        #"
+echo "#                                    #"
+echo "#  USAGE: $ ./convert inputFile.pas  #"
+echo "#                                    #"
+echo "######################################"
+
+inputFile="$1"
+
+gsed -e 's/$/\r/' "$1" > output.pas
+
