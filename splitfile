@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+##
+# Author: Caleb Adams
+# Discription: Splits the input file into X number of sub files
+#
+## 
+
+outputNum="$1"
+inputFile="$2"
+
+gsplit -n $outputNum "$inputFile"
+
