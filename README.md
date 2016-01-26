@@ -36,4 +36,5 @@ or
 
 ### REQUIREMENTS:
 * GNU sed - brew install gsed
+* GNU utils - brew install coreutils
 * the free pascal compiler - [http://www.freepascal.org/](http://www.freepascal.org/ "free pascal")
