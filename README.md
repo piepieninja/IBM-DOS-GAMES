@@ -1,6 +1,8 @@
 # IBM-DOS-GAMES
 #### games and custom programs for my old 1989 IBM PS/2
 
+![IBM Blinking](img/ibm.gif)
+
 ### HOW TO USE:
 this requires the free pascal compiler located at:
 [http://www.freepascal.org/](http://www.freepascal.org/ "free pascal")
